@@ -13,6 +13,7 @@ public class ObjectSpawn : MonoBehaviour {
 	public Text scoreText;
 	public Text average;
 	public Text performance;
+	public Text wrongAnswers;
 
 	public InputField input;
 
@@ -37,6 +38,7 @@ public class ObjectSpawn : MonoBehaviour {
 	public float score;
 	public float averageReactionTime;
 	public int numCorrectAnswers;
+	public int numWrongAnswers;
 
 
 	GameObject newObject;
@@ -99,7 +101,38 @@ public class ObjectSpawn : MonoBehaviour {
 
 			int scoreInt = (int)(score * 10);
 			scoreText.text = "Score: " + scoreInt.ToString();
-			average.text = "Average Reaction Time: " + (averageReactionTime/numCorrectAnswers).ToString();
+			average.text = "Average Reaction Time: " + (averageReactionTime/numCorrectAnswers).ToString() + " sec";
+			wrongAnswers.text = "# wrong answers: " + numWrongAnswers.ToString();
+
+			//performance text, base this how you want
+			if(scoreInt < 0)
+			{
+				performance.text = "Performance: You need to focus better";
+			}
+			else if(scoreInt>= 0 && scoreInt < 30)
+			{
+				performance.text = "Performance: Passable";
+			}
+			else if(scoreInt >= 30 && scoreInt < 70)
+			{
+				performance.text = "Performance: Decent";
+			}
+			else if(scoreInt >= 70 && scoreInt< 100)
+			{
+				performance.text = "Performance: Good!";
+			}
+			else if(scoreInt >= 100 && scoreInt < 150)
+			{
+				performance.text = "Performance: Great!";
+			}
+			else if(scoreInt >= 150 && scoreInt < 250)
+			{
+				performance.text = "Performance: Amazing!";
+			}
+			else if(scoreInt >= 250)
+			{
+				performance.text = "Performance: Master";
+			}
 		}
 
 		//game start
@@ -308,6 +341,7 @@ public class ObjectSpawn : MonoBehaviour {
 							print("wrong!");
 							score -= 1;
 							print (score);
+							numWrongAnswers++;
 						}
 					}
 				}
